@@ -1,4 +1,7 @@
 package de.mm20.launcher2.ui.launcher.search
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import de.mm20.launcher2.ui.ktx.onTwoFingerTap
 
 import androidx.activity.compose.BackHandler
 import androidx.appcompat.app.AppCompatActivity
@@ -218,6 +221,15 @@ fun SearchColumn(
                         profiles.filter { profileStates[it.type]?.hidden == false }
                     }
                     val selectedProfile = visibleProfiles.getOrNull(selectedAppProfileIndex) ?: visibleProfiles.firstOrNull()
+
+    val hapticFeedback = LocalHapticFeedback.current
+    val twoFingerModifier = Modifier.onTwoFingerTap {
+        if (visibleProfiles.size > 1) {
+            viewModel.selectedAppProfileIndex = (selectedAppProfileIndex + 1) % visibleProfiles.size
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
+    }
+
                     AppResults(
                         apps = when (selectedProfile?.type) {
                             Profile.Type.Private -> privateApps

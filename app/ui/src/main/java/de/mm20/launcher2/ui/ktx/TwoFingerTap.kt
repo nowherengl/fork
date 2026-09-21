@@ -6,11 +6,6 @@ import androidx.compose.ui.input.pointer.changedToDown
 import androidx.compose.ui.input.pointer.pointerInput
 import kotlinx.coroutines.withTimeoutOrNull
 
-/**
- * Ultra-responsive, zero-latency two-finger tap detector.
- * Passes single-finger touches directly to scroll/click without consuming events,
- * preventing any frame drops or gesture lag.
- */
 fun Modifier.onTwoFingerTap(onTap: () -> Unit): Modifier = pointerInput(Unit) {
     awaitPointerEventScope {
         while (true) {

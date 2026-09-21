@@ -66,7 +66,7 @@ fun LazyListScope.AppResults(
         profileStates[selectedProfileType]?.locked == true
     }
 
-    val before = if (false && profiles.size > 1 /* tabs hidden */) {
+    val before = if (false) { // tabs hidden
          @Composable {
             Column(
                 verticalArrangement = if (reverse) Arrangement.BottomReversed else Arrangement.Top,
